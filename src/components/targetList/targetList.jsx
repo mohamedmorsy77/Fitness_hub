@@ -1,39 +1,46 @@
 import React, { useEffect, useRef, useState } from "react";
-import TargetListITem from "./targetListITem";
+
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import SearchMuscels from "./searchMuscels";
+
+import SearchMuscles from "./searchMuscels";
+
+import UseTargetList from "@/hooks/useTargetList";
 
 function TargetList() {
-  const targetList = [
-    "abductors",
-    "abs",
-    "adductors",
-    "biceps",
-    "calves",
-    "cardiovascular system",
-    "delts",
-    "forearms",
-    "glutes",
-    "hamstrings",
-    "lats",
-    "levator scapulae",
-    "pectorals",
-    "quads",
-    "serratus anterior",
-    "spine",
-    "traps",
-    "triceps",
-    "upper back",
-  ];
-  const [filteredData, setFilterdData] = useState(targetList);
+  const { data: targetList, error, isError, isLoading } = UseTargetList();
+
+  const [filteredData, setFilteredData] = useState(targetList || []);
   const filterMuscles = (query) => {
-    const filtered = query
-      ? targetList.filter((muscle) =>
-          muscle.toLowerCase().includes(query.toLowerCase())
-        )
-      : targetList;
-    setFilterdData(filtered);
+    const filtered =
+      query && targetList
+        ? targetList.filter((muscle) =>
+            muscle.toLowerCase().includes(query.toLowerCase())
+          )
+        : targetList;
+    setFilteredData(filtered);
   };
+  useEffect(() => {
+    if (targetList) {
+      setFilteredData(targetList);
+    }
+  }, [targetList]);
+  if (isLoading) {
+    return (
+      <section className="w-[90%] mx-auto flex flex-col gap-10 py-20">
+        <p className="text-white text-center text-lg p-4">Loading muscles...</p>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section className="w-[90%] mx-auto flex flex-col gap-10 py-20">
+        <p className="text-white text-center text-lg p-4">
+          Error loading muscles: {error.message}
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="w-[90%] mx-auto flex flex-col gap-10 py-20">
@@ -45,7 +52,7 @@ function TargetList() {
           Select the target muscle to view all related exercise
         </p>
       </div>
-      <SearchMuscels filterMuscles={filterMuscles} />
+      <SearchMuscles filterMuscles={filterMuscles} />
 
       <ScrollArea className="w-full mt-10   whitespace-nowrap">
         <div className="flex gap-4 min-w-max p-2 overflow-x-auto scroll-smooth">

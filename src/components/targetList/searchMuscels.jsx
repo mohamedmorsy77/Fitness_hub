@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 
-function SearchMuscels({ filterMuscles }) {
+function SearchMuscles({ filterMuscles }) {
   const [query, setQuery] = useState("");
   const handleMusclesSearch = (e) => {
     const { value } = e.target;
@@ -24,4 +24,4 @@ function SearchMuscels({ filterMuscles }) {
   );
 }
 
-export default SearchMuscels;
+export default SearchMuscles;

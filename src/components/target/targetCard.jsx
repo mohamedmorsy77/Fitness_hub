@@ -20,7 +20,7 @@ function TargetCard() {
         <CardTitle className="flex items-center justify-between">
           <p className="font-bold text-blue-900 text-2xl">45° side bend</p>
           <span className="text-white font-semibold rounded-full bg-amber-500 p-2">
-            Beginer
+            Beginner
           </span>
         </CardTitle>
       </CardHeader>
@@ -31,7 +31,7 @@ function TargetCard() {
             Body Weight
           </span>
           <span className="p-2 bg-white text-[#555] font-semibold text-sm rounded-full">
-            Strenght
+            Strength
           </span>
           <span className="p-2 bg-white text-[#555] font-semibold text-sm rounded-full">
             Weast
@@ -62,7 +62,7 @@ function TargetCard() {
             type="single"
             collapsible
             className="w-full"
-            defaultValue="item-1"
+            
           >
             <AccordionItem value="item-1">
               <AccordionTrigger className="bg-[#667eea] text-white flex items-center justify-between p-2  cursor-pointer rounded-md hover:bg-[#764ba2] text-xl transition duration-300 ease-in-out">
