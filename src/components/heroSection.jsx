@@ -13,11 +13,11 @@ function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover bg-center"
       />
       <div className="relative z-20 text-white text-center ">
-        <h1 className="text-6xl font-bold uppercase">
+        <h1 className="text-2xl lg:text-6xl font-bold uppercase md:text-4xl">
           build <span className="text-purple-300">your</span> body{" "}
           <span className="text-purple-300">strong</span>
         </h1>
-        <p className="mt-4 text-2xl">
+        <p className="mt-4 text-xl md:text-2xl">
           Ready to change your physique, but can't work out in the gym?
         </p>
         <div>

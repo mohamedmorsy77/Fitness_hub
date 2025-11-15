@@ -4,14 +4,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import App from "./App.jsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import TargetContextProvider from "./context/targetContextProvider";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <TargetContextProvider>
       <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  </StrictMode>
+    </TargetContextProvider>
+
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 );

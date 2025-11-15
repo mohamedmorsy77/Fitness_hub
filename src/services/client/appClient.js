@@ -19,24 +19,65 @@ export const ENDPOINTS = {
   equipment: "/exercises/equipment",
   bodyPartList: "/exercises/bodyPartList",
   bodyPart: "/exercises/bodyPart",
+  image: "/image",
 };
 
 // Helper function QueryOptions
 
-export const buildQueryOptions = (endpoint, basekey, key = {}) => {
+export const buildQueryOptions = (
+  endpoint,
+  basekey,
+  key = {},
+  options = {},
+  params = {}
+) => {
   return queryOptions({
     queryKey: [basekey, key],
-    queryFn: () => fetchData(endpoint),
-    staleTime: 1000 * 60 * 60 * 24 * 30,
+    queryFn: () => fetchData(endpoint, params),
+    staleTime: Infinity,
+    gcTime: Infinity,
     fetchOnWindowFocus: false,
     refetchOnMount: false,
+
+    ...options,
   });
 };
 
-const fetchData = async (url) => {
-  let response = await appClient.get(url);
-
-  console.log("API Response:", response);
+const fetchData = async (url, params) => {
+  let response = await appClient.get(url, {
+    params: { ...params },
+  });
 
   return response.data;
+};
+
+// Images
+
+export const buildQueryImageOptions = (
+  endpoint,
+  basekey,
+  key = {},
+  options = {},
+  params = {}
+) => {
+  return queryOptions({
+    queryKey: [basekey, key],
+    queryFn: () => fetchImageData(endpoint, params),
+    staleTime: Infinity,
+    gcTime: Infinity,
+    fetchOnWindowFocus: false,
+    refetchOnMount: false,
+
+    ...options,
+  });
+};
+
+export const fetchImageData = async (url, params) => {
+  const response = await appClient.get(url, {
+    params,
+    responseType: "blob",
+  });
+  const imageUrl = URL.createObjectURL(response.data);
+
+  return imageUrl;
 };
